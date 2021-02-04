@@ -13,7 +13,40 @@
   <body>
     <form id="calc" class="calc" action="">
       <ul class="calc-layout">
-        <li class="calc-item"><input class="calc-input" type="number" /></li>
+        <li class="calc-item">
+          <input
+            id="calc-input-buffer"
+            class="calc-input-buffer"
+            type="text"
+            min="0"
+            max="999999999999"
+            value=""
+            readonly
+          />
+        </li>
+        <li class="calc-item">
+          <input
+            id="calc-input-result"
+            class="calc-input-buffer"
+            type="number"
+            min="0"
+            max="999999999999"
+            value=""
+            readonly
+          />
+        </li>
+        <li class="calc-item">
+          <input
+            id="calc-input"
+            class="calc-input"
+            type="number"
+            min="0"
+            max="999999999999"
+            value=""
+            readonly
+          />
+        </li>
+        <li><button id="del" type="button">DEL</button></li>
         <li class="calc-item">
           <button id="num1" type="button">1</button>
           <button id="num2" type="button">2</button>
