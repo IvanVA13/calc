@@ -15,43 +15,79 @@ const sum = document.getElementById('+');
 const sub = document.getElementById('-');
     let result = []
 const action = function () {
+    let number = ""
+    let buffer = ""
+    let bufferAction = ""
     const input = document.getElementById('calc-input')
     const inputBuffer = document.getElementById('calc-input-buffer')
     const inputResult = document.getElementById('calc-input-result')
-    let number = ""
-    let buffer = ""
-    if (this.innerHTML === "DEL") {
-        input.setAttribute("value", "")
-        inputBuffer.setAttribute("value", "");
+    const inputGet = input.getAttribute("value")
+    const inputBufGet = inputBuffer.getAttribute("value")
+
+    const resetBuf = function () {
+        inputBuffer.setAttribute("value", "")
+    }
+    const resetBufAct = function () {
+        bufferAction = ""
+    }
+    const resetResult = function () {
         inputResult.setAttribute("value", "");
         result = []
     }
-    if (this.getAttribute("id").includes("num")) {
-        number = input.getAttribute("value") + this.innerHTML
-        input.setAttribute("value", number)
+    const resetInput = function () {
+        input.setAttribute("value", "")
     }
+    const addBuf = function () {
+        inputBuffer.setAttribute("value", buffer);
+    }
+    const addResult = function () {
+        result.push(Number(inputGet));
+    }
+
+    if (this.getAttribute("id").includes("num")) {
+
+    number = inputGet + this.innerHTML
+    input.setAttribute("value", number)
+    }
+
+    if (bufferAction === "") {
+        buffer = inputGet
+        if (!this.getAttribute("id").includes("del")) {
+            bufferAction = this.innerHTML
+            console.log("🚀 ~ file: js.js ~ line 57 ~ action ~ bufferAction", bufferAction)
+    }
+    
+    }
+
+    if (this.innerHTML === "DEL") {
+        resetInput()
+        resetBuf();
+        resetResult()
+        resetBufAct()
+    }
+
     if (this.innerHTML === "+") {
         let sum = 0
         buffer =
-            inputBuffer.getAttribute("value") === ""
-            ? input.getAttribute("value")
-            : `${inputBuffer.getAttribute("value")}+${input.getAttribute("value")}`
-        inputBuffer.setAttribute("value", buffer);
-        result.push(Number(input.getAttribute("value")));
+            inputBufGet === ""
+            ? inputGet
+            : `${inputBufGet}+${inputGet}`
+        addBuf();
+        addResult();
         sum = result.reduce((acc, next)=> acc + next, 0)
-        input.setAttribute("value", "")
+        resetInput()
         inputResult.setAttribute("value", sum)
     }
     if (this.innerHTML === "-") {
         let sub = 0
         buffer =
-            inputBuffer.getAttribute("value") === ""
-            ? input.getAttribute("value")
-            : `${inputBuffer.getAttribute("value")}-${input.getAttribute("value")}`
-        inputBuffer.setAttribute("value", buffer);
-        result.push(Number(input.getAttribute("value")));
+            inputBufGet === ""
+            ? inputGet
+            : `${inputBufGet}-${inputGet}`
+        addBuf();
+        addResult();
         sub = result.reduce((acc, next)=> acc - next)
-        input.setAttribute("value", "")
+        resetInput()
         inputResult.setAttribute("value", sub)
     }
     if (this.innerHTML === "/") {
@@ -81,7 +117,14 @@ sum.addEventListener('click', action);
 sub.addEventListener('click', action);
 
 
-/* записать значение в инпут
-при нажатии на действие сохранить в буфере значение инпута и обнулить сам инпут. 
-Также должен запомнить действие действие. При последующем нажатии должен выполнить действие,
-сохраненное в памяти и записать новое действие. */
+/* Вводим значение в инпут
+При нажатии действия (+-/*) значение в инпуте добавляется в буфер чисел и пушится 
+в массив, сохраняется действие, которое нужно выполнить, обнуляется инпут.
+Далее после ввода в инпут нового значения при последующем нажатии действия, сначала 
+выполняется действие, сохраненное в буфере, а потом переписывается буфер действия.
+Т.е. нужно создать иф, который будет проверять наличие в буфере действия наличие 
+записи. При отсутствии он будет записывать действие в буфер, при наличии записи будет 
+проверять значение записи в буфере действия и выполнять соответствующее действие, 
+а потом перепишет на новое действие, если была нажата кнопка действия. Если же была 
+нажата кнопка равно, то обнулит буфер действия и выведет результат. */
+
