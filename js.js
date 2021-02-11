@@ -13,11 +13,11 @@ const num0 = document.getElementById('num0');
 const del = document.getElementById('del');
 const sum = document.getElementById('+');
 const sub = document.getElementById('-');
-    let result = []
+let result = []
+let number = ""
+let buffer = ""
+let bufferAction = ""
 const action = function () {
-    let number = ""
-    let buffer = ""
-    let bufferAction = ""
     const input = document.getElementById('calc-input')
     const inputBuffer = document.getElementById('calc-input-buffer')
     const inputResult = document.getElementById('calc-input-result')
@@ -45,18 +45,40 @@ const action = function () {
     }
 
     if (this.getAttribute("id").includes("num")) {
-
-    number = inputGet + this.innerHTML
-    input.setAttribute("value", number)
+        number = inputGet + this.innerHTML
+        input.setAttribute("value", number)
     }
 
-    if (bufferAction === "") {
-        buffer = inputGet
-        if (!this.getAttribute("id").includes("del")) {
-            bufferAction = this.innerHTML
-            console.log("🚀 ~ file: js.js ~ line 57 ~ action ~ bufferAction", bufferAction)
+    if (bufferAction === "+"  && !this.getAttribute("id").includes("num")) {
+        let sum = 0
+        buffer =
+            inputBufGet === ""
+            ? inputGet
+            : `${inputBufGet}+${inputGet}`
+        addResult();
+        addBuf()
+        sum = result.reduce((acc, next)=> acc + next)
+        inputResult.setAttribute("value", sum)
+        
     }
-    
+
+    if (bufferAction === "-" && !this.getAttribute("id").includes("num")) {
+        let sub = 0
+        buffer =
+            inputBufGet === ""
+            ? inputGet
+            : `${inputBufGet}-${inputGet}`
+        addResult();
+        addBuf()
+        sub = result.reduce((acc, next)=> acc - next)
+        inputResult.setAttribute("value", sub)
+    }
+
+    if (!this.getAttribute("id").includes("num")) {
+        bufferAction = this.innerHTML
+        addResult();
+        resetInput();
+        console.log(bufferAction);
     }
 
     if (this.innerHTML === "DEL") {
@@ -65,41 +87,6 @@ const action = function () {
         resetResult()
         resetBufAct()
     }
-
-    if (this.innerHTML === "+") {
-        let sum = 0
-        buffer =
-            inputBufGet === ""
-            ? inputGet
-            : `${inputBufGet}+${inputGet}`
-        addBuf();
-        addResult();
-        sum = result.reduce((acc, next)=> acc + next, 0)
-        resetInput()
-        inputResult.setAttribute("value", sum)
-    }
-    if (this.innerHTML === "-") {
-        let sub = 0
-        buffer =
-            inputBufGet === ""
-            ? inputGet
-            : `${inputBufGet}-${inputGet}`
-        addBuf();
-        addResult();
-        sub = result.reduce((acc, next)=> acc - next)
-        resetInput()
-        inputResult.setAttribute("value", sub)
-    }
-    if (this.innerHTML === "/") {
-        div()
-    }
-    if (this.innerHTML === "*") {   
-        mult()
-    }
-    if (this.innerHTML === "=") {
-        result()
-    }
-
  }
 
 num1.addEventListener('click', action);
