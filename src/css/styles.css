@@ -1,9 +1,23 @@
+:root {
+  --timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  --animation-duration: 250ms;
+}
+
+html {
+  box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
 ul {
   padding: 0;
   margin: 0;
   list-style: none;
 }
-
 button {
   display: block;
   width: 50px;
@@ -13,6 +27,7 @@ button {
 .calc {
   padding: 20px;
   width: 242px;
+
   border: 1px solid #000000;
 }
 
@@ -20,10 +35,6 @@ button {
   display: block;
   width: 200px;
   height: 30px;
-}
-
-.calc-input::-webkit-inner-spin-button {
-  appearance: none;
 }
 
 .calc-layout {
@@ -35,4 +46,3 @@ button {
 .calc-item {
   display: flex;
 }
-/*# sourceMappingURL=main.css.map */

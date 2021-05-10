@@ -1,0 +1,14 @@
+<input class="calc-input-buffer" type="text" min="0" max="999999999999" value="" readonly />
+<input class="calc-input-buffer" type="number" min="0" max="999999999999" value="" readonly />
+<input id="calc-input" class="calc-input" type="number" min="0" max="999999999999" value="" />
+<button class="btn btn--del" type="button">DEL</button>
+<ul class="calc-layout">
+    {{#each this}}
+    <li class="calc-item">
+        <button class="btn" type="button">{{btn1}}</button>
+        <button class="btn" type="button">{{btn2}}</button>
+        <button class="btn" type="button">{{btn3}}</button>
+        <button class="btn" type="button">{{btn4}}</button>
+    </li>
+    {{/each}}
+</ul>
